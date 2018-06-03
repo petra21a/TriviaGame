@@ -21,7 +21,7 @@ let newQuestion = function(question,answer,choiceOne,choiceTwo,choiceThree,choic
     triviaGame.Questions.push({question,answer,choiceOne,choiceTwo,choiceThree,choiceFour,image,link});
 };
 //test question
-newQuestion("Magnetism or Fairie Lights? This natural wonder can be seen from where:","Tromso, Norway","Prime Meridian", "Tromso, Norway","Equator","Syndey, Australia","https://www.pinterest.com/pin/315674255102159273/","https://en.wikipedia.org/wiki/Aurora");
+newQuestion("Magnetism or Fairie Lights? This natural wonder can be seen from where:","Tromso, Norway","Prime Meridian", "Tromso, Norway","Equator","Syndey, Australia","https://i.pinimg.com/1200x/74/8d/65/748d65261fea6a63badbcb60c1e69717.jpg","https://en.wikipedia.org/wiki/Aurora");
 newQuestion("It's the tippy top of tall:","Mt. Everest","Mt.Kilamonjaro", "Mt. Ranier","Mt. Fuji","Mt.Everest","https://cdn.britannica.com/700x450/17/83817-004-C5DB59F8.jpg","https://www.britannica.com/place/Mount-Everest");
 
 },
@@ -59,6 +59,7 @@ displayQuestion: function(n){
     console.log(n);
     let questionBox = $("<div>");
     questionBox.attr("id","questionBox");
+    questionBox.html("<img src='"+triviaGame.Questions[n].image+"' alt='"+triviaGame.Questions[n].answer+"'>");
     $("body").append(questionBox);
 
     let question = $("<h1>")
@@ -94,17 +95,17 @@ options.append(b1,b2,b3,b4);
 timer: {
  
     time:20,
-    display: function(){
-    let timerDisplay = $("<div>");
+
+
+    start: function() {
+        triviaGame.timer.time = 10;
+        let timerDisplay = $("<div>");
         let timeRemaining = $("<h2>");
         timeRemaining.attr("id","timeRemaining")
         timeRemaining.text("Time Remaining: 00:"+triviaGame.timer.time);
         $("#question").append(timerDisplay);
         timerDisplay.append(timeRemaining);
-    },
-
-    start: function() {
-        triviaGame.timer.time = 20;
+    
         //  TODO: Use setInterval to start the count here and set the clock to running.
             triviaGame.clockRunning=true;   
             intervalId = setInterval(this.count,1000);
@@ -133,7 +134,7 @@ timer: {
             $("#question").append("<a href="+triviaGame.Questions[0].link+" target='_blank'><h2>Not quite. To learn more about "+triviaGame.Questions[0].answer+" click here.</h2></a>");
             // $("body").slideUp();
             // $("body").empty();
-            triviaGame.timer.time = 20;
+            triviaGame.timer.time = 10;
             
             
         }
@@ -163,34 +164,34 @@ timer: {
 //reveal right and wrong
 //counter for right and wrong
 //limit choices to one answer
-takeQuiz: function(){
-    i=0;
-        this.displayQuestion(i);
-        triviaGame.timer.display();
-    triviaGame.timer.start();
+    takeQuiz: function(){
+        let i=0;
+            this.displayQuestion(i)
+            // triviaGame.timer.display();
+            triviaGame.timer.start();
 
-    $("button").on("mouseenter",function(){
-        $(this).fadeTo("fast",0.5);
- 
-    });
-    $("button").on("mouseleave",function(){
-        $(this).fadeTo("fast",1.0);
- 
-    });
-    $("button").on("click", function(){
-        let choice =  $(this).val();
-        if (choice === triviaGame.Questions[0].answer){
+        $("button").on("mouseenter",function(){
+            $(this).fadeTo("fast",0.5);
+    
+        });
+        $("button").on("mouseleave",function(){
+            $(this).fadeTo("fast",1.0);
+    
+        });
+        $("button").on("click", function(){
+            let choice =  $(this).val();
+            if (choice === triviaGame.Questions[0].answer){
+                $("button[value='"+triviaGame.Questions[0].answer+"']").addClass("correct");
+            } else {
+                console.log("Wrong!")
             $("button[value='"+triviaGame.Questions[0].answer+"']").addClass("correct");
-        } else {
-            console.log("Wrong!")
-           $("button[value='"+triviaGame.Questions[0].answer+"']").addClass("correct");
-           $("button[value='"+choice+"']").addClass("wrong");
-            console.log(triviaGame.Questions[0].link)
-           $("#question").append("<a href="+triviaGame.Questions[0].link+" target='_blank'><h2>Not quite. To learn more about "+triviaGame.Questions[0].answer+" click here.</h2></a>");
+            $("button[value='"+choice+"']").addClass("wrong");
+                console.log(triviaGame.Questions[0].link)
+            $("#question").append("<a href="+triviaGame.Questions[0].link+" target='_blank'><h2>Not quite. To learn more about "+triviaGame.Questions[0].answer+" click here.</h2></a>");
 
-        }
-    });
-}
+            }
+        });
+    }
 
 //countdown timer
 
