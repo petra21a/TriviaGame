@@ -1,0 +1,14 @@
+.body{
+    background-image: url("../images/green_cup.png");
+}
+.correct{
+    background-color: mediumspringgreen;
+    font-weight: bolder;
+
+}
+
+.wrong{
+   opacity: 0.2;
+   color: tomato;
+
+}
