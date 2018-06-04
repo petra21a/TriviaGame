@@ -180,6 +180,7 @@ takeQuiz: function(){
             
             $("#timeRemaining").text("Time Remaining: "+current);
             if(triviaGame.time === 0){
+                $("button").prop('disabled',true);
                 clearInterval(intervalId);
                 triviaGame.incorrect+=1; 
                 console.log(triviaGame.incorrect);
@@ -215,10 +216,7 @@ takeQuiz: function(){
                     if (choice === triviaGame.Questions[triviaGame.question].answer){
                         
                         $("button[value='"+triviaGame.Questions[triviaGame.question].answer+"']").attr("id","correct");
-                        let resultNote = $("<div>");
-                        resultNote.addClass("row display-4 text-center text-success m-1 bg-white");
-                        resultNote.text("Correct!");
-                       $("#questionBox").append(resultNote);
+                       $("#options").append("<br><h1 class='display-4 text-center text-danger m-1 bg-white'> Correct!'</h1>");
                         triviaGame.correct++
             
                     } else {
