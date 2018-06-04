@@ -216,7 +216,7 @@ takeQuiz: function(){
                     if (choice === triviaGame.Questions[triviaGame.question].answer){
                         
                         $("button[value='"+triviaGame.Questions[triviaGame.question].answer+"']").attr("id","correct");
-                       $("#options").append("<br><h1 class='display-4 text-center text-danger m-1 bg-white'> Correct!'</h1>");
+                       $("#options").append("<br><h1 class='display-4 text-center text-success font-weight-bold m-1 bg-white'> Correct!</h1>");
                         triviaGame.correct++
             
                     } else {
